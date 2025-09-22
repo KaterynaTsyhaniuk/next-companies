@@ -7,9 +7,9 @@ import CompanyTable from '@/app/components/company-table';
 import CompanyRow from '@/app/components/company-row';
 import { Status } from '@/app/components/status-label';
 
-export interface PageProps {}
 
-export default function Page({}: PageProps) {
+
+export default function Page() {
     return (
         <>
             <Header>Companies</Header>
