@@ -5,9 +5,9 @@ import SummaryTableHeader from '@/app/components/summary-table-header';
 import SummaryTableCell from '@/app/components/summary-table-cell';
 import DashboardCard from '@/app/components/dashboard-card';
 
-export interface PageProps {}
 
-export default async function Page({}: PageProps) {
+
+export default async function Page() {
     const data = await getSummaryPromotions();
 
     return (
