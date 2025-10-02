@@ -5,14 +5,9 @@ import SummaryTableHeader from '@/app/components/summary-table-header';
 import SummaryTableCell from '@/app/components/summary-table-cell';
 import DashboardCard from '@/app/components/dashboard-card';
 
-interface Promotion {
-    id: string;
-    title: string;
-    companyTitle: string;
-    discount: number;
-}
+export interface PageProps {}
 
-export default async function Page() {
+export default async function Page({}: PageProps) {
     const data = await getPromotions();
 
     return (
@@ -26,7 +21,7 @@ export default async function Page() {
                     </>
                 }
             >
-                {data.map(({ id, title, companyTitle, discount }: Promotion) => (
+                {data.map(({ id, title, companyTitle, discount }) => (
                     <tr key={id}>
                         <SummaryTableCell>{companyTitle}</SummaryTableCell>
                         <SummaryTableCell>{title}</SummaryTableCell>

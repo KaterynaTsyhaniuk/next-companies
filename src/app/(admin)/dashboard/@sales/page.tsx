@@ -5,14 +5,9 @@ import SummaryTableHeader from '@/app/components/summary-table-header';
 import SummaryTableCell from '@/app/components/summary-table-cell';
 import DashboardCard from '@/app/components/dashboard-card';
 
-interface Sales {
-    companyId: string;
-    companyTitle: string;
-    sold: number;
-    income: number;
-}
+export interface PageProps {}
 
-export default async function Page() {
+export default async function Page({}: PageProps) {
     const data = await getSummarySales();
 
     return (
@@ -26,7 +21,7 @@ export default async function Page() {
                     </>
                 }
             >
-                {data.map(({ companyId, companyTitle, sold, income } : Sales) => (
+                {data.map(({ companyId, companyTitle, sold, income }) => (
                     <tr key={companyId}>
                         <SummaryTableCell>{companyTitle}</SummaryTableCell>
                         <SummaryTableCell align="center">{sold}</SummaryTableCell>

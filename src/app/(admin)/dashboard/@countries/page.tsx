@@ -5,12 +5,9 @@ import { getCompanies, getCountries } from '@/lib/api';
 import DashboardCard from '@/app/components/dashboard-card';
 import getCountById from '@/lib/utils/getCountById';
 
-interface Countries {
-    id: string;
-    title: string;
+export interface PageProps {}
 
-}
-export default async function Page() {
+export default async function Page({}: PageProps) {
     const countries = await getCountries();
     const companies = await getCompanies();
 
@@ -20,7 +17,7 @@ export default async function Page() {
         <DashboardCard label="Countries of companies">
             <div className="flex items-end pb-5 px-5 gap-2">
                 <div>
-                    {countries.map(({ id, title}: Countries) => (
+                    {countries.map(({ id, title }) => (
                         <p
                             key={id}
                             className={clsx(

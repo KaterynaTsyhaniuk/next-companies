@@ -59,18 +59,21 @@ const PROJECT_TOKEN = process.env.NEXT_PUBLIC_PROJECT_TOKEN;
 const buildUrl = (...paths: string[]) =>
     `https://${PROJECT_TOKEN}.mockapi.io/api/v1/${paths.join('/')}`;
 
-
 const stringifyQueryParams = (params: Record<string, string>) =>
     new URLSearchParams(params).toString();
 
-const sendRequest = async <T>(url: string, init?: RequestInit) => {
+
+
+async function sendRequest<T>(url: string, init?: RequestInit): Promise<T> {
     const res = await fetch(url, init);
+
     if (!res.ok) {
-        throw new Error(await res.text());
+        const message = await res.text().catch(() => res.statusText); // 👈 безпечніше
+        throw new Error(message || `Request failed with status ${res.status}`);
     }
 
-    return (await res.json()) as T;
-};
+    return res.json() as Promise<T>;
+}
 
 export const getSummaryStats = (init?: RequestInit) => {
     return sendRequest<SummaryStats>(buildUrl('summary-stats', '1'), init);
@@ -104,4 +107,35 @@ export const getPromotions = async (
         `${buildUrl('promotions')}?${stringifyQueryParams(params)}`,
         init,
     );
+};
+
+export const createCompany = async (
+    data: Omit<Company, 'id' | 'hasPromotions'>
+): Promise<Company> => {
+    return sendRequest<Company>(buildUrl('companies'), {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'content-type': 'application/json',
+        },
+    });
+};
+
+export const createPromotion = async (
+    data: Omit<Promotion, 'id'>,
+): Promise<Promotion> => {
+    return sendRequest<Promotion>(buildUrl('promotions'), {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'content-type': 'application/json',
+        },
+    });
+};
+
+
+export const deletePromotion = async (id: string): Promise<void> => {
+    await sendRequest<void>(buildUrl('promotions', id), {
+        method: 'DELETE',
+    });
 };
