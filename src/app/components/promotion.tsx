@@ -69,7 +69,7 @@ export default function Promotion({ promotion }: PromotionProps) {
                     disabled={isPending}
                     className="mt-2 px-3 py-1 bg-red-500 text-white rounded disabled:opacity-50"
                 >
-                    {isPending ? 'Видаляю...' : 'Видалити'}
+                    {isPending ? 'Delete...' : 'Delete'}
                 </button>
             </div>
         </div>

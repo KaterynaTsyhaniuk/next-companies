@@ -139,3 +139,10 @@ export const deletePromotion = async (id: string): Promise<void> => {
         method: 'DELETE',
     });
 };
+
+export const deleteCompany = async (id: string): Promise<void> => {
+     await sendRequest<void>(buildUrl('companies', id), {
+        method: 'DELETE',
+    });
+
+}

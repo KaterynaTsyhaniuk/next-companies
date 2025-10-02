@@ -1,5 +1,5 @@
 import PromotionFormModalWrapper from "@/app/components/promotion-form-modal-wrapper";
-
+import React from 'react';
 interface PageProps {
     params: Promise<{ id: string }>;
 }
